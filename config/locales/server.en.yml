@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    discourse_category_topic_noindex_enabled: "Enable category topic noindex"
+    category_topic_noindex_categories: "Categories whose topics should send an X-Robots-Tag: noindex header."

@@ -1,0 +1,4 @@
+fa_IR:
+  site_settings:
+    discourse_category_topic_noindex_enabled: "فعال‌سازی noindex برای موضوعات دسته‌بندی‌ها"
+    category_topic_noindex_categories: "دسته‌بندی‌هایی که موضوعات آن‌ها باید سربرگ X-Robots-Tag: noindex را ارسال کنند."

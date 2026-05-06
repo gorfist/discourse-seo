@@ -1,0 +1,7 @@
+plugins:
+  discourse_category_topic_noindex_enabled:
+    default: true
+    client: true
+  category_topic_noindex_categories:
+    default: ""
+    type: category_list
