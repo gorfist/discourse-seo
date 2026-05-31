@@ -1,4 +1,5 @@
 fa_IR:
   site_settings:
-    discourse_category_topic_noindex_enabled: "فعال‌سازی noindex برای موضوعات دسته‌بندی‌ها"
-    category_topic_noindex_categories: "دسته‌بندی‌هایی که موضوعات آن‌ها باید سربرگ X-Robots-Tag: noindex را ارسال کنند."
+    discourse_category_topic_noindex_enabled: "فعال‌سازی noindex برای موضوعات دسته‌بندی‌های انتخاب‌شده"
+    category_topic_noindex_categories: "دسته‌بندی‌هایی که صفحه‌های موضوعات آن‌ها باید سربرگ X-Robots-Tag: noindex ارسال کنند."
+    canonical_topic_post_urls: "راهبرد نشانی کانونیکال (canonical) برای نشانی پست‌های موضوع. گزینه self نشانی کانونیکال هر پست را همان پست قرار می‌دهد و گزینه topic_root نشانی کانونیکال پست‌ها را ریشه موضوع قرار می‌دهد."

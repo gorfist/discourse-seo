@@ -1,4 +1,5 @@
 en:
   site_settings:
-    discourse_category_topic_noindex_enabled: "Enable category topic noindex"
-    category_topic_noindex_categories: "Categories whose topics should send an X-Robots-Tag: noindex header."
+    discourse_category_topic_noindex_enabled: "Enable noindex for topics in selected categories"
+    category_topic_noindex_categories: "Categories whose topic pages should send an X-Robots-Tag: noindex header."
+    canonical_topic_post_urls: "Canonical URL strategy for topic post URLs. Use self to canonicalize each post URL to itself, or topic_root to canonicalize post URLs to the topic root."

@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
-# name: discourse-category-topic-noindex
-# about: Add X-Robots-Tag noindex to topics in selected categories
+# name: discourse-seo
+# about: Custom SEO tool for Discourse with targeted indexability controls
 # version: 0.1.0
 # authors: Raven
-# url: https://github.com/gorfist/discourse-category-topic-noindex
+# url: https://github.com/gorfist/discourse-seo
 # required_version: 2.7.0
 
-enabled_site_setting :discourse_category_topic_noindex_enabled
-
-module ::DiscourseCategoryTopicNoindex
-  PLUGIN_NAME = "discourse-category-topic-noindex"
+module ::DiscourseSeo
+  PLUGIN_NAME = "discourse-seo"
   NOINDEX_CUSTOM_FIELD = "noindex"
 
   def self.category_ids
@@ -35,23 +33,41 @@ end
 
 after_initialize do
   reloadable_patch do
-    Topic.register_custom_field_type ::DiscourseCategoryTopicNoindex::NOINDEX_CUSTOM_FIELD, :boolean
+    Topic.register_custom_field_type ::DiscourseSeo::NOINDEX_CUSTOM_FIELD, :boolean
 
     add_to_class(:topic, :noindex) do
-      ::DiscourseCategoryTopicNoindex.topic_noindex?(self)
+      ::DiscourseSeo.topic_noindex?(self)
     end
 
-    module ::CategoryTopicNoindexTopicsControllerExtension
-      def show
-        super
+    module ::DiscourseSeoTopicViewExtension
+      def canonical_path
+        return super unless post_number.to_i > 1
+        return super if SiteSetting.embed_set_canonical_url && topic.topic_embed.present?
 
-        if SiteSetting.discourse_category_topic_noindex_enabled &&
-             ::DiscourseCategoryTopicNoindex.topic_noindex?(@topic_view&.topic)
-          ::DiscourseCategoryTopicNoindex.add_noindex_header(response)
+        case SiteSetting.canonical_topic_post_urls
+        when "self"
+          "#{relative_url}/#{post_number}"
+        when "topic_root"
+          relative_url
+        else
+          super
         end
       end
     end
 
-    ::TopicsController.prepend ::CategoryTopicNoindexTopicsControllerExtension
+    ::TopicView.prepend ::DiscourseSeoTopicViewExtension
+
+    module ::DiscourseSeoTopicsControllerExtension
+      def show
+        super
+
+        if SiteSetting.discourse_category_topic_noindex_enabled &&
+             ::DiscourseSeo.topic_noindex?(@topic_view&.topic)
+          ::DiscourseSeo.add_noindex_header(response)
+        end
+      end
+    end
+
+    ::TopicsController.prepend ::DiscourseSeoTopicsControllerExtension
   end
 end

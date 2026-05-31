@@ -5,3 +5,9 @@ plugins:
   category_topic_noindex_categories:
     default: ""
     type: category_list
+  canonical_topic_post_urls:
+    default: self
+    type: enum
+    choices:
+      - self
+      - topic_root
